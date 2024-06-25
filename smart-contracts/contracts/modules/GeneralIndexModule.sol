@@ -22,7 +22,7 @@ pragma solidity 0.6.10;
 pragma experimental "ABIEncoderV2";
 
 //TESTING IMPORT
-import {console} from "hardhat/console.sol";
+// import {console} from "hardhat/console.sol";
 
 import {IERC20} from "@openzeppelin/contracts/token/ERC20/IERC20.sol";
 import {Math} from "@openzeppelin/contracts/math/Math.sol";
@@ -284,13 +284,6 @@ contract GeneralIndexModule is ModuleBase, ReentrancyGuard {
             _component,
             _ethQuantityLimit
         );
-
-        console.log(
-            "TESTING INSIDE CONTRACT: ",
-            tradeInfo.sendQuantity,
-            tradeInfo.floatingQuantityLimit
-        );
-        console.log(tradeInfo.sendToken, tradeInfo.receiveToken);
 
         _executeTrade(tradeInfo);
 
