@@ -31,7 +31,7 @@ button {
   margin-block: 10px;
   padding-block: 10px;
   padding-inline: 20px;
-  background-color: var(--primary-color);
+  background-color: var(--color-white);
   box-shadow: 2px 1px var(--color-white);
   display: flex;
   flex-direction: row;
@@ -43,7 +43,7 @@ button {
 
 button:hover {
   scale: 1.05;
-  box-shadow: 1px 1px var(--primary-color);
+  box-shadow: 1px 1px var(--color-white);
 }
 
 

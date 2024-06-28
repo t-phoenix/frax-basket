@@ -5,11 +5,14 @@ import { Route, Routes } from "react-router-dom";
 import { useNetwork } from "wagmi";
 import {Toaster} from "react-hot-toast";
 import Header from "./components/Header";
-// import Home from "./pages/Home";
 import Footer from "./components/Footer";
+
+import Home from "./pages/Home";
+import Analytics from "./pages/Analytics";
+import Mint from "./pages/Mint";
+
 // import Fund from "./pages/Fund";
 // import DemoApp from "./pages/DemoApp";
-// import Analytics from "./pages/Analytics";
 
 function App() {
   const { chain } = useNetwork();
@@ -21,9 +24,11 @@ function App() {
 
       <div className="body">
         <Routes>
-          {/* <Route path="/" element={<Home />} /> */}
+          <Route path="/" element={<Home />} />
+          <Route path="/analytics" element={<Analytics />}/>
+          <Route path="/mint" element={<Mint />} />
           {/* <Route path="/swap" element={<Fund />} />
-          <Route path="/mint" element={<DemoApp />} />
+          
           <Route path="/analytics" element={<Analytics />}/> */}
         </Routes>
       </div>
