@@ -1,10 +1,13 @@
 import React from "react";
 import "../../styles/analytics.css";
-import { index, controller, issue, manager, wbtc, weth, usdt, wfrxETH, frax, fxs  } from "../../constants/contractAddress";
+import { index, controller, issue, manager, wbtc, weth, usdt, wfrxETH, frax, fxs, navissue, oracle, setvaluer, integration, generalindex, fraxswapadapter  } from "../../constants/contractAddress";
 
 export default function ContractInfo(){
-    const contractAddr = [{name: "INDEX Token", address: index}, {name: "Controller", address: controller}, 
-                            {name: "Issuing Module", address: issue}, {name: "Manager", address: manager}, 
+    const contractAddr = [{name: "Manager", address: manager}, {name: "INDEX Token (FRXB)", address: index}, 
+                            {name: "Basic Issuing Module", address: issue}, {name: "Net Asset Value Issue Module", address: navissue},
+                            {name: "Controller", address: controller}, {name: "Price Oracle", address: oracle},
+                            {name:"FRXB Valuer", address: setvaluer },{name:"Integration Registry", address: integration},
+                            {name:"General Index Module", address: generalindex},{name:"Frax Swap Adapter", address: fraxswapadapter},
                             {name: "Wrapped Frax Ether (wfrxETH)", address: wfrxETH}, {name: "Frax Stablecoin (FRAX)", address: frax},
                             {name: "Frax Share (FXS)", address: fxs}, ] 
 

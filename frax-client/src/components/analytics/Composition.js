@@ -42,9 +42,9 @@ export default function Composition(){
 
     // console.log("INDEX CONTRACT BALANCE: ", Number(data[0]), Number(data[1]))
     const assetData = [
-                        {name: "Frax Ether", symbol: "wfrxETH", balance: data ? Number(data[0])/10**18: "4.262", price: wfrxETHPrice, change24H: "+9.6", value: wfrxETHValue, allocation: wfrxETHAllocation},
-                        {name: "Frax", symbol: "FRAX", balance: data ? Number(data[0])/10**18: "4.262", price: fraxPrice, change24H: "+9.6", value: fraxValue, allocation: fraxAllocation},
-                        {name: "Frax Share", symbol: "FXS", balance: data ? Number(data[0])/10**18: "4.262", price: fxsPrice, change24H: "+9.6", value: fxsValue, allocation: fxsAllocation}
+                        {name: "Frax Ether", symbol: "wfrxETH", balance: data ? Number(data[0])/10**18: "0.001", price: wfrxETHPrice, change24H: "+9.6", value: wfrxETHValue, allocation: wfrxETHAllocation},
+                        {name: "Frax", symbol: "FRAX", balance: data ? Number(data[1])/10**18: "3.25", price: fraxPrice, change24H: "+9.6", value: fraxValue, allocation: fraxAllocation},
+                        {name: "Frax Share", symbol: "FXS", balance: data ? Number(data[2])/10**18: "1.08", price: fxsPrice, change24H: "+9.6", value: fxsValue, allocation: fxsAllocation}
                     ]
 
     React.useEffect(()=>{
@@ -97,7 +97,7 @@ export default function Composition(){
                 <div style={{display: 'flex', flexDirection: 'row', width: '70%', justifyContent: 'space-evenly'}}>
                 <p className="element-box">BALANCE</p>
                 <p className="element-box">PRICE</p>
-                <p className="element-box">CHANGE 24H</p>
+                {/* <p className="element-box">CHANGE 24H</p> */}
                 <p className="element-box">VALUE</p>
                 <p className="element-box">ALLOCATION</p>
                 </div>
@@ -110,7 +110,7 @@ export default function Composition(){
                     <div style={{display: 'flex', flexDirection: 'row', width: '70%', justifyContent: 'space-evenly'}}>
                     <p className="element-box">{Number(asset.balance).toLocaleString()} ({asset.symbol})</p>
                     <p className="element-box">$ {Number(asset.price).toLocaleString()}</p>
-                    <p className="element-box">{asset.change24H} %</p>
+                    {/* <p className="element-box">{asset.change24H} %</p> */}
                     <p className="element-box">$ {Number(asset.value).toLocaleString()}</p>
                     <p className="element-box">{Number(asset.allocation).toLocaleString()} %</p>
                     </div>

@@ -1,6 +1,7 @@
 import React, {useRef} from "react";
 import tether from "../../assets/usdt.svg"
 // import CiLogo from "../../assets/CiLogo.png";
+import frxBASKET from "../../assets/frxBASKET.png"
 import { useContractReads } from "wagmi"; 
 import { index } from "../../constants/contractAddress";
 import { SetTokenABI } from "../../abis/SetToken";
@@ -19,7 +20,7 @@ export default function Overview (){
       
     ]
   })
-  const [indexPrice, setIndexPrice] = React.useState("146700.8")
+  const [indexPrice, setIndexPrice] = React.useState("9.23")
   const [aum, setAum] = React.useState("624230.56")
 
   // const [overviewData, setOverviewData] = React.useState([
@@ -41,10 +42,12 @@ export default function Overview (){
       const usdtprice = await getTetherPrice();
       const indexprice = (0.001*frxETHprice) + fxsprice + (3*fraxprice);
       console.log("Price of frax Basket token:", indexprice)
-      setIndexPrice(indexprice)
-      if(data){
-        setAum((data[0]/10**18)*indexprice)
-      }
+      if(indexprice != 0 ){
+        setIndexPrice(indexprice)
+        if(data){
+          setAum((data[0]/10**18)*indexprice)
+        }
+    }
       
     } catch (error) {
       console.log("Error setting data:", error)
@@ -68,7 +71,7 @@ const { scrollX } = useScroll({
             <p className="box-title">Token In Circulation</p>
           </div>
           <div className="small-box">
-            <h3 className="box-data"><img src={tether} style={{height: '28px',marginRight: '6px'}}/>${Number(indexPrice).toLocaleString()}</h3>
+            <h3 className="box-data"><img src={frxBASKET} style={{height: '28px',marginRight: '6px'}}/>${Number(indexPrice).toLocaleString()}</h3>
             <p className="box-title">frxBASKET Price</p>
           </div>
           <div className="small-box">

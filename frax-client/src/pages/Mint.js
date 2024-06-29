@@ -2,20 +2,17 @@ import React from "react";
 import { motion } from "framer-motion";
 import "../styles/common.css";
 import InputBox from "../components/InputBox";
-import CiLogo from "../assets/CiLogo.png";
 import frxBASKET from "../assets/frxBASKET.png";
 import { useAccount, useChainId, useNetwork } from "wagmi";
 import { Web3Button } from "@web3modal/react";
 import MultiAsset from "../components/MultiAsset";
 import SubNav from "../components/common/SubNav";
-import bitcoin from "../assets/btc.svg";
-import ethereum from "../assets/eth.svg";
-import tether from "../assets/usdt.svg";
+
 import wfrxETHLogo from "../assets/wfrxETH.svg";
 import fraxLogo from "../assets/frax.svg";
 import fxsLogo from "../assets/fxs.svg";
 import { useContractReads } from "wagmi";
-import { index, issue, usdt, wbtc, weth, wfrxETH, frax, fxs } from "../constants/contractAddress";
+import { index, issue, wfrxETH, frax, fxs } from "../constants/contractAddress";
 import { ERCToken_ABI } from "../abis/ERCToken";
 import { SetTokenABI } from "../abis/SetToken";
 import {
@@ -34,7 +31,7 @@ import toast from "react-hot-toast";
 export default function DemoApp() {
   const account = useAccount();
   const { chain } = useNetwork();
-  // console.log("chain:", chain);
+
   const erctokenBalance = {
     abi: ERCToken_ABI,
     functionName: "balanceOf",
@@ -89,7 +86,7 @@ export default function DemoApp() {
   const tokensList = [
     {
       name: "Frax Basket",
-      symbol: "frxBASKET",
+      symbol: "FRXB",
       src: frxBASKET,
       address: "",
       balance: data ? Number(data[6]) / 10 ** 18 : 0,

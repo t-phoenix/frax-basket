@@ -2,6 +2,8 @@ import React from "react";
 import {motion} from "framer-motion";
 
 export default function AssetMenu({setShowAssetList, setSelectedAsset, tokensList}){
+  console.log("Asset Menu Token LIst: ", tokensList)
+
     return(
         <div className="asset-list-box">
               <p>Select a token</p>
@@ -28,8 +30,8 @@ export default function AssetMenu({setShowAssetList, setSelectedAsset, tokensLis
                     </div>
                   </div>
                   <div className="asset-list-tail">
-                    <p>{token.balance}</p>
-                    <p style={{ fontSize: "10px" }}>$ {token.value}</p>
+                    <p>{Number(token.balance).toLocaleString()}</p>
+                    <p style={{ fontSize: "10px" }}>$ {Number(token.value).toLocaleString()}</p>
                   </div>
                 </motion.div>
               ))}

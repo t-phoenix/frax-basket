@@ -4,7 +4,7 @@ import "../styles/common.css";
 import AssetMenu from "./common/AssetMenu";
 import {MdAccountBalanceWallet} from 'react-icons/md'
 
-export default function InputBox({ inputAmout, setInputAmount, inputAmtValue, setInputAmtValue, isMultiAsset, selectedAsset, setSelectedAsset,isOutput = false,  tokensList }) {
+export default function InputBox({ inputAmout, setInputAmount, inputAmtValue, setInputAmtValue, isMultiAsset, selectedAsset, setSelectedAsset, isOutput = false, tokensList }) {
   const [showAssetList, setShowAssetList] = React.useState(false);
   
   function onInputChange(e) {
@@ -50,7 +50,7 @@ export default function InputBox({ inputAmout, setInputAmount, inputAmtValue, se
             width: "30%",
           }}
         >
-          {tokensList.length ===1  ? 
+          {tokensList.length === 1  ? 
           <div className="asset-button" style={{backgroundColor: "#303a4f", color: "#ffffff", borderColor: "#cccbcb", borderStyle: "solid"}}>
             <img src={selectedAsset.src} style={{width: '28px'}}/>
             <p style={{fontSize: '14px', fontWeight: '640', marginInline: '6px'}}>{selectedAsset.symbol}</p>
@@ -79,7 +79,7 @@ export default function InputBox({ inputAmout, setInputAmount, inputAmtValue, se
       >
         <p>$ {Number(inputAmtValue).toLocaleString()}</p>
         <p style={{marginRight: '8px', display: 'flex', flexDirection: 'row', alignItems: 'center'}}>
-          <MdAccountBalanceWallet size={20} style={{marginRight: '2px'}}/> : {selectedAsset.balance} {selectedAsset.symbol}
+          <MdAccountBalanceWallet size={20} style={{marginRight: '2px'}}/> : {Number(selectedAsset.balance).toLocaleString()} {selectedAsset.symbol}
         </p>
       </div>
     </div>

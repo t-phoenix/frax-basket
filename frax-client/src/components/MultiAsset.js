@@ -136,7 +136,7 @@ export default function MultiAsset({enableDelegate, outputAmount, outputTokensLi
             <p>
               {Number(token.balance).toLocaleString()} {token.symbol}
             </p>
-            {enableDelegate ? <p style={{fontSize: '10px'}}>{token.delegateBalance} {token.symbol}</p> : <></>}
+            {enableDelegate ? <p style={{fontSize: '10px'}}>{Number(token.delegateBalance).toLocaleString()} {token.symbol}</p> : <></>}
             </div>
             {enableDelegate ? <div style={{display: 'flex', flexDirection: 'row'}}>
               {/* <motion.div whileHover={{scale: 1.4}} whileTap={{scale: 0.8}} onClick={()=>handleFaucet(token)}>

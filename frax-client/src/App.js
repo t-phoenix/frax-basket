@@ -10,6 +10,7 @@ import Footer from "./components/Footer";
 import Home from "./pages/Home";
 import Analytics from "./pages/Analytics";
 import Mint from "./pages/Mint";
+import Fund from "./pages/Fund";
 
 // import Fund from "./pages/Fund";
 // import DemoApp from "./pages/DemoApp";
@@ -27,9 +28,8 @@ function App() {
           <Route path="/" element={<Home />} />
           <Route path="/analytics" element={<Analytics />}/>
           <Route path="/mint" element={<Mint />} />
-          {/* <Route path="/swap" element={<Fund />} />
+          <Route path="/swap" element={<Fund />} />
           
-          <Route path="/analytics" element={<Analytics />}/> */}
         </Routes>
       </div>
 
