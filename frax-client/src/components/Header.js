@@ -15,6 +15,8 @@ export default function Header() {
   const navigate = useNavigate();
   console.log("Chain: ", chain);
   const [showMenu, setShowMenu] = React.useState(false);
+  const [selectedLink, setSelectedLink] = React.useState('/')
+
 
   const isMobile = useMediaQuery({maxWidth: "600px"})
   const isTab = useMediaQuery({ maxWidth: "992px" });
@@ -31,7 +33,7 @@ export default function Header() {
           <div className="nav-burger" onClick={openNavBar}>
             {account.address && <IoMenu />}
           </div>
-          <div className="title-container" onClick={() => {navigate("/"); setShowMenu(false);}}>
+          <div className="title-container" onClick={() => {navigate("/"); setShowMenu(false); }}>
           {/* <img src={CiLogo} style={{width: '30px'}} alt="Crypto Index Logo"/> */}
             <h2 className="title">FRAX BASKET</h2>
             <p className="icon-title">by COSX.AI</p>
@@ -39,15 +41,15 @@ export default function Header() {
         </div>
       ) : (
         <div className="header-container">
-          <div className="title-container" onClick={() => {navigate("/"); setShowMenu(false);}}>
+          <div className="title-container" onClick={() => {navigate("/"); setShowMenu(false); setSelectedLink('/');}}>
             <h2 className="title">FRAX BASKET</h2>
             <a href="https://cosx.ai/" target="blank" style={{fontStyle:'italic'}}><p className="icon-title">by cosX.ai</p></a>
           </div>
-          {account.address && <Navbar setShow={setShowMenu}/>}
+          {account.address && <Navbar setShow={setShowMenu} selectedLink={selectedLink} setSelectedLink={setSelectedLink}/>}
         </div>
       )}
       {
-        showMenu? <Navbar setShow={setShowMenu}/>: <></>
+        showMenu? <Navbar setShow={setShowMenu} selectedLink={selectedLink} setSelectedLink={setSelectedLink}/>: <></>
       }
 
 

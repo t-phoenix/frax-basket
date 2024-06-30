@@ -160,8 +160,8 @@ export default function DemoApp() {
   async function handleRedeem(){
     toast('Iniitiating...')
     const redeemValue = ethers.utils.parseUnits(inputAmout, 'ether')
-    console.log("Redeem Value in Ethers", redeemValue)
-    if(redeemValue < tokensList.balance){
+    console.log("Redeem Value in Ethers", (Number(data[6])/10**18), " : ", Number(redeemValue))
+    if((Number(redeemValue)/10**18) < (Number(data[6])/10**18)){
       const config = await prepareWriteContract({
         address:issue,
         abi: BasicIssueABI,
@@ -239,7 +239,9 @@ export default function DemoApp() {
             outputTokensList={outputTokensList}
           />
         )}
-
+        <div style={{width: '96%', display: 'flex', flexDirection: 'row', justifyContent: 'flex-end'}}>
+          <a href={`https://app.frax.finance/swap/main`} target="blank">Frax Swap ↗</a>
+        </div>  
         <br />
         {account.address ? (
           <>

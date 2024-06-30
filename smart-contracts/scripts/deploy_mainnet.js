@@ -395,7 +395,7 @@ async function main() {
 
 
   // Issue Set Token using NAV MODULE
-  const navapproveTrx = await NAVModule.connect(accounts[0]).issue(frxBASKET.target, FXS.target, 30000000000000000n, 0 , accounts[0].address ) // Mint for 3 FRAX
+  const navapproveTrx = await NAVModule.connect(accounts[0]).issue(frxBASKET.target, FXS.target, 30000000000000000n, 0 , accounts[0].address ) // Mint for 0.3 FXS
   await navapproveTrx.wait(2)
 
   // Checking FRAX BASKET BALANCE after minting new tokens

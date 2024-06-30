@@ -14,6 +14,8 @@ export default function InputBox({ inputAmout, setInputAmount, inputAmtValue, se
 
   function handleSelectAsset() {
     setShowAssetList(!showAssetList);
+    setInputAmount(0);
+    setInputAmtValue(0);
   }
 
   return (

@@ -23,7 +23,7 @@ export default function ContractInfo(){
             {contractAddr.map((contractInfo)=>(
                 <div key={contractInfo.address} className="composition-row simple-row">
                     <p className="title-box">{contractInfo.name}</p>
-                    <a href={`https://testnet.bscscan.com/address/${contractInfo.address}`} target="blank">{contractInfo.address}</a>
+                    <a href={`https://fraxscan.com/address/${contractInfo.address}`} target="blank">{contractInfo.address}</a>
                 </div>
             ))}
                         

@@ -101,6 +101,7 @@
   padding-inline: 2%;
   padding-block: 1%;
   border-radius: 10px;
+  font-weight: 600;
   background-color: var(--color-white);
   color: var(--color-black);
 }

@@ -9,17 +9,20 @@ import wfrxETHLogo from "../assets/wfrxETH.svg";
 import fxsLogo from "../assets/fxs.svg";
 import fraxLogo from "../assets/frax.svg";
 
-import bitcoin from "../assets/btc.svg"
-import ethereum from "../assets/eth.svg";
-import tether from "../assets/usdt.svg"
+
 //import OutBoxput from "../components/OutputBox";
 import { useAccount, useContractReads, useNetwork } from "wagmi";
+import {prepareWriteContract, writeContract} from "@wagmi/core"
 import { Web3Button } from "@web3modal/react";
-import { getBitcoinPrice, getEthereumPrice, getFraxPrice, getFxsPrice, getTetherPrice, getfrxEtherPrice } from "../services/geckoApi";
+import { getFraxPrice, getFxsPrice, getTetherPrice, getfrxEtherPrice } from "../services/geckoApi";
 import { ERCToken_ABI } from "../abis/ERCToken";
 import { frax, fxs, index, issue, navissue, setvaluer, usdt, wfrxETH } from "../constants/contractAddress";
 import { SetTokenABI } from "../abis/SetToken";
 import { SetValuerABI } from "../abis/SetValuer";
+import {ethers} from 'ethers';
+import { NavIssueABI } from "../abis/NavIssue";
+import { IoMdRefresh } from "react-icons/io";
+
 
 export default function Fund() {
     const account = useAccount()
@@ -71,11 +74,11 @@ export default function Fund() {
 
 
 
-    const [tokensList, setTokensList] = React.useState([{name:"wrapped ETH", symbol: "wfrxETH", src: wfrxETHLogo , address: "", balance: data && Number(data[0]) / 10 ** 18, value: "3.35", price: "3357.54"}, 
-                        {name:"Frax", symbol: "FRAX", src: fraxLogo, address:"", balance:  data && Number(data[1]) / 10 ** 18, value: "3.03", price: "1.01" }, 
-                        {name:"Frax Share", symbol:"FXS", src: fxsLogo, address:"", balance:  data && Number(data[2]) / 10 ** 18, value: "3.65", price: "3.65"}
+    const [tokensList, setTokensList] = React.useState([{name:"wrapped ETH", symbol: "wfrxETH", src: wfrxETHLogo , address: wfrxETH, balance: data && Number(data[0]) / 10 ** 18, value: "3.35", price: "3357.54"}, 
+                        {name:"Frax", symbol: "FRAX", src: fraxLogo, address: frax, balance:  data && Number(data[1]) / 10 ** 18, value: "3.03", price: "1.01" }, 
+                        {name:"Frax Share", symbol:"FXS", src: fxsLogo, address: fxs, balance:  data && Number(data[2]) / 10 ** 18, value: "3.65", price: "3.65"}
                       ])
-    const [tokensList2, setTokensList2] =React.useState([{name:"Frax Basket", symbol: "FRXB", src: frxBASKET , address: "", balance: data && Number(data[3]) / 10 ** 18, value: "200", price: data && Number(data[4])/10 ** 8 }]) 
+    const [tokensList2, setTokensList2] =React.useState([{name:"Frax Basket", symbol: "FRXB", src: frxBASKET , address: index, balance: data && Number(data[3]) / 10 ** 18, value: "200", price: data && Number(data[4])/10 ** 8 }]) 
   
 
 
@@ -98,16 +101,96 @@ export default function Fund() {
 
     function changeAssets(){
         setIsInputINDEX(!isInputINDEX)
+        const tempList = selectedInputAsset;
         setSelectedInputAsset(selectedOutputAsset)
-        setSelectedOutputAsset(selectedInputAsset)
+        setSelectedOutputAsset(tempList)
         setInputAmount(0.0)
         setOutputAmount(0.0)
         setInputAmtValue(0.0)
     }
 
-    function buyINDEX(){
-        toast(`${outputAmout} INDEX minted succesfully. \n Transaction:  ${account.address}`)
+    async function handleSwap(){
+        // toast(`${outputAmout} INDEX minted succesfully. \n Transaction:  ${account.address}`)
+        if(!isInputINDEX){
+          console.log("input Index? ", isInputINDEX)
+          // issue
+          const issueValue = ethers.utils.parseUnits(inputAmout, 'ether')
+          console.log("Issue Value of input in Ethers", Number(issueValue))
+
+          // const recieveValue =  ethers.utils.parseUnits(outputAmout, 'ether');
+          // console.log("Issue Value of outpur in Ethers", recieveValue)
+
+          console.log("args", selectedInputAsset.address)
+
+          const config = await prepareWriteContract({
+            address: navissue,
+            abi: NavIssueABI,
+            functionName: "issue",
+            args: [index, selectedInputAsset.address, issueValue, 0, account.address]
+          })
+
+          try {
+            const { hash } = await writeContract(config);
+            console.log("Mint INDEX Hash:", hash);
+            toast.success(`FRXB Issued Successfully: ${hash}`)
+          } catch (error) {
+            console.log("Error! While minting INDEX tokens",error);
+            toast.error("Error! could not Issue FRXB INDEX Tokens");
+          }
+
+
+        } else {
+          console.log("input Index? ", isInputINDEX)
+          // redeem
+          const issueValue = ethers.utils.parseUnits(inputAmout, 'ether')
+          console.log("Issue Value of input in Ethers", Number(issueValue))
+
+          // const recieveValue =  ethers.utils.parseUnits(outputAmout, 'ether');
+          // console.log("Issue Value of outpur in Ethers", recieveValue)
+
+          console.log("args", selectedOutputAsset.address)
+
+          const config = await prepareWriteContract({
+            address: navissue,
+            abi: NavIssueABI,
+            functionName: "redeem",
+            args: [index, selectedOutputAsset.address, issueValue, 0, account.address]
+          })
+
+          try {
+            const { hash } = await writeContract(config);
+            console.log("Mint INDEX Hash:", hash);
+            toast.success(`FRXB Redeem Successfull ${hash}`)
+          } catch (error) {
+            console.log("Error! While minting INDEX tokens",error);
+            toast.error("Error! could not Redeem FRXB INDEX Tokens");
+          }
+
+        }
+
     }
+
+    // async function handleMint(){
+    //   toast('Iniitiating...')
+    //   const mintValue = ethers.utils.parseUnits(inputAmout, 'ether')
+    //   console.log("Mint Value in Ethers", mintValue)
+  
+    //   const config = await prepareWriteContract({
+    //     address:issue,
+    //     abi: BasicIssueABI,
+    //     functionName: "issue",
+    //     args: [index, mintValue, account.address]
+    //   })
+  
+    //   try {
+    //     const { hash } = await writeContract(config);
+    //     console.log("Mint INDEX Hash:", hash);
+    //     toast.success(`INDEX MINT Successfully: ${hash}`)
+    //   } catch (error) {
+    //     console.log("Error! While minting INDEX tokens",error);
+    //     toast.error("Error! could not mint INDEX Tokens");
+    //   }
+
 
 
     const [indexPrice, setIndexPrice] = React.useState(data && Number(data[4])/10**8)
@@ -146,19 +229,27 @@ export default function Fund() {
 
       <div className="trade-box">
         <br/>
-        <h1 style={{ textAlign: "start" }}>Swap</h1>
-        <p style={{ textAlign: "start", fontSize: '12px' }}>Swap FXRB using single Asset</p>
-        <p
-          style={{
-            textAlign: "start",
-            fontSize: "14px",
-            color: "#52BAD1",
-            marginBlock: "8px",
-            fontWeight: "700",
-          }}
-        >
-          〽️ 1 FRXB = $ {data ? (Number(data[4])/10 ** 8).toLocaleString() : Number(indexPrice).toLocaleString()}
-        </p>
+        <div className="wide-apart-row">
+          <div>
+          <h1 style={{ textAlign: "start" }}>Swap</h1>
+          <p style={{ textAlign: "start", fontSize: '12px' }}>Swap FXRB using single Asset</p>
+          <p
+            style={{
+              textAlign: "start",
+              fontSize: "14px",
+              color: "#52BAD1",
+              marginBlock: "8px",
+              fontWeight: "700",
+            }}
+          >
+            〽️ 1 FRXB = $ {data ? (Number(data[4])/10 ** 8).toLocaleString() : Number(indexPrice).toLocaleString()}
+          </p>
+          </div>
+
+          <motion.div onClick={()=>window.location.reload()} whileHover={{rotate: '270deg', scale: 1.2}} transition={{duration: 0.3}} whileTap={{scale: 0.8}} style={{x: "-20px", y: "20px", borderRadius: '10px', backgroundColor: '#303a4f', height: "36px", width: '36px',display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center', padding: '4px', marginLeft: '6vw'}}>
+            <IoMdRefresh size={24}/>
+          </motion.div>
+        </div>
         <br/>
         <br/>
         <br/>
@@ -171,17 +262,29 @@ export default function Fund() {
         <br/>
         <br/>
         <div style={{textAlign: 'start', fontSize: '12px', marginLeft: '4px'}}>
-            <p><b>Deposit:</b> {isInputINDEX ? Number(outputAmout).toFixed(6): Number(inputAmout).toFixed(6)} {isInputINDEX ? selectedOutputAsset.symbol: selectedInputAsset.symbol}</p>
-            <p style={{marginBlock: '4px'}}><b>You Receive:</b> {isInputINDEX ? Number(inputAmout).toFixed(6): Number(outputAmout).toFixed(6)} {isInputINDEX ? selectedInputAsset.symbol : selectedOutputAsset.symbol}</p>
-            <p><b>Total Value:</b> ${inputAmtValue}</p>
+            <p><b>Deposit:</b> {Number(inputAmout).toLocaleString()} {selectedInputAsset.symbol}</p>
+            <p style={{marginBlock: '8px'}}><b>You Receive:</b> {Number(outputAmout).toLocaleString()} {selectedOutputAsset.symbol}</p>
+            <p><b>Total Value:</b> ${Number(inputAmtValue).toLocaleString()}</p>
         </div>
         <br/>
         <br/>
         <div className="center-in-row" >
-        <button style={{backgroundColor: "#cccbcb"}}>Coming Soon</button>
+        {/* <button style={{backgroundColor: "#cccbcb"}}>Coming Soon</button> */}
         </div>
         {/* {account.address ? <div className="center-in-row"><button onClick={buyINDEX}>Fund</button></div> : <Web3Button />} */}
-        
+        {account.address ? (
+          <>
+            {chain.id === 252 ? (
+              <div className="center-in-row">
+                  <button onClick={handleSwap}>Swap</button>
+              </div>
+            ) : (
+              <p>Please connect to Fraxtal Mainnet</p>
+            )}
+          </>
+        ) : (
+          <Web3Button />
+        )}
         <br/>
         <br/>
       </div>
