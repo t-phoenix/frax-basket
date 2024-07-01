@@ -3,8 +3,9 @@ import "../styles/analytics.css";
 
 import Overview from "../components/analytics/Overview";
 import HistoryGraph from "../components/analytics/HistoryGraph";
-import Composition from "../components/analytics/Composition";
+// import Composition from "../components/analytics/Composition";
 import ContractInfo from "../components/analytics/ContractInfo";
+import RebalanceComposition from "../components/analytics/RebalanceComposition";
 
 
 
@@ -33,7 +34,7 @@ export default function Analytics() {
         <br/>
         <Overview />
         <HistoryGraph /> 
-        <Composition />
+        <RebalanceComposition />
         <ContractInfo />
 
 

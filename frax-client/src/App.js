@@ -11,6 +11,7 @@ import Home from "./pages/Home";
 import Analytics from "./pages/Analytics";
 import Mint from "./pages/Mint";
 import Fund from "./pages/Fund";
+import Rebalance from "./pages/Rebalance";
 
 // import Fund from "./pages/Fund";
 // import DemoApp from "./pages/DemoApp";
@@ -29,6 +30,7 @@ function App() {
           <Route path="/analytics" element={<Analytics />}/>
           <Route path="/mint" element={<Mint />} />
           <Route path="/swap" element={<Fund />} />
+          {/* <Route path="/rebalance" element={<Rebalance />}/> */}
           
         </Routes>
       </div>

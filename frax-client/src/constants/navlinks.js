@@ -12,7 +12,10 @@ export const navlinks = [
     name: 'SWAP',
     link: '/swap'
   },
-  
+  // {
+  //   name: 'REBALANCE',
+  //   link: '/rebalance'
+  // }
 
   
 ];

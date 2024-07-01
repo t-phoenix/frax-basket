@@ -110,15 +110,11 @@ export default function Fund() {
     }
 
     async function handleSwap(){
-        // toast(`${outputAmout} INDEX minted succesfully. \n Transaction:  ${account.address}`)
         if(!isInputINDEX){
           console.log("input Index? ", isInputINDEX)
           // issue
           const issueValue = ethers.utils.parseUnits(inputAmout, 'ether')
           console.log("Issue Value of input in Ethers", Number(issueValue))
-
-          // const recieveValue =  ethers.utils.parseUnits(outputAmout, 'ether');
-          // console.log("Issue Value of outpur in Ethers", recieveValue)
 
           console.log("args", selectedInputAsset.address)
 
@@ -145,19 +141,18 @@ export default function Fund() {
           const issueValue = ethers.utils.parseUnits(inputAmout, 'ether')
           console.log("Issue Value of input in Ethers", Number(issueValue))
 
-          // const recieveValue =  ethers.utils.parseUnits(outputAmout, 'ether');
-          // console.log("Issue Value of outpur in Ethers", recieveValue)
-
           console.log("args", selectedOutputAsset.address)
 
-          const config = await prepareWriteContract({
-            address: navissue,
-            abi: NavIssueABI,
-            functionName: "redeem",
-            args: [index, selectedOutputAsset.address, issueValue, 0, account.address]
-          })
+          
 
           try {
+            const config = await prepareWriteContract({
+              address: navissue,
+              abi: NavIssueABI,
+              functionName: "redeem",
+              args: [index, selectedOutputAsset.address, issueValue, 0, account.address]
+            })
+            
             const { hash } = await writeContract(config);
             console.log("Mint INDEX Hash:", hash);
             toast.success(`FRXB Redeem Successfull ${hash}`)
@@ -170,26 +165,6 @@ export default function Fund() {
 
     }
 
-    // async function handleMint(){
-    //   toast('Iniitiating...')
-    //   const mintValue = ethers.utils.parseUnits(inputAmout, 'ether')
-    //   console.log("Mint Value in Ethers", mintValue)
-  
-    //   const config = await prepareWriteContract({
-    //     address:issue,
-    //     abi: BasicIssueABI,
-    //     functionName: "issue",
-    //     args: [index, mintValue, account.address]
-    //   })
-  
-    //   try {
-    //     const { hash } = await writeContract(config);
-    //     console.log("Mint INDEX Hash:", hash);
-    //     toast.success(`INDEX MINT Successfully: ${hash}`)
-    //   } catch (error) {
-    //     console.log("Error! While minting INDEX tokens",error);
-    //     toast.error("Error! could not mint INDEX Tokens");
-    //   }
 
 
 
@@ -260,8 +235,13 @@ export default function Fund() {
         <InputBox inputAmout={outputAmout} setInputAmount={setOutputAmount} inputAmtValue={outputAmtValue} setInputAmtValue={setOutputAmtValue} selectedAsset={selectedOutputAsset} setSelectedAsset={setSelectedOutputAsset} isOutput={true} tokensList={isInputINDEX? tokensList: tokensList2}/>
         <br/>
         <br/>
+        {isInputINDEX ? <div style={{width: '100%', display: 'flex', flexDirection: 'row', justifyContent: 'end'}}>
+          <p style={{textAlign: 'end', fontSize: '12px', width: '70%', marginLeft: '4px'}}>
+            Note: Frax Basket contract may not hold enough balance to redeem FRXB into desired assets
+          </p>
+          </div>: <p></p>}
         <br/>
-        <div style={{textAlign: 'start', fontSize: '12px', marginLeft: '4px'}}>
+        <div style={{textAlign: 'start', fontSize: '12px', marginLeft: '4px' }}>
             <p><b>Deposit:</b> {Number(inputAmout).toLocaleString()} {selectedInputAsset.symbol}</p>
             <p style={{marginBlock: '8px'}}><b>You Receive:</b> {Number(outputAmout).toLocaleString()} {selectedOutputAsset.symbol}</p>
             <p><b>Total Value:</b> ${Number(inputAmtValue).toLocaleString()}</p>
