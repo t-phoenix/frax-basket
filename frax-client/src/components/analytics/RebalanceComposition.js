@@ -1,7 +1,7 @@
 import React from "react";
 import "../../styles/analytics.css";
 import { useContractReads } from "wagmi";
-import { index, wfrxETH, frax, fxs, oracle, usdt } from "../../constants/contractAddress";
+import { index, wfrxETH, frax, fxs, oracle, usdt, wethusd, fraxusd, fxsusd } from "../../constants/contractAddress";
 import { ERCToken_ABI } from "../../abis/ERCToken";
 import {
   getfrxEtherPrice,
@@ -10,6 +10,7 @@ import {
 } from "../../services/geckoApi";
 import { Pie, PieChart, Sector } from "recharts";
 import { PriceOracleABI } from "../../abis/PriceOracle";
+import { aggregatorV3InterfaceABI } from "../../abis/AggragatorV3Interface";
 
 
 
@@ -35,22 +36,22 @@ export default function RebalanceComposition() {
         args: [index],
       },
       {
-        address: oracle,
-        abi: PriceOracleABI,
-        functionName: "getPrice",
-        args: [wfrxETH, usdt]
+        address: wethusd,
+        abi: aggregatorV3InterfaceABI,
+        functionName: "latestRoundData",
+        args: []
       },
       {
-        address: oracle,
-        abi: PriceOracleABI,
-        functionName: "getPrice",
-        args: [frax, usdt]
+        address: fraxusd,
+        abi: aggregatorV3InterfaceABI,
+        functionName: "latestRoundData",
+        args: []
       },
       {
-        address: oracle,
-        abi: PriceOracleABI,
-        functionName: "getPrice",
-        args: [fxs, usdt]
+        address: fxsusd,
+        abi: aggregatorV3InterfaceABI,
+        functionName: "latestRoundData",
+        args: []
       },
     ],
   });
