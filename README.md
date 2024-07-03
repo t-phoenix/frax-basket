@@ -46,7 +46,7 @@ By investing in a diversified basket of frax ecosystem tokens, you can reduce tr
 
 Join a thriving community of crypto enthusiasts and access educational resources to stay informed and make informed investment decisions.
 
-## Why Choose Crypto INDEX: Crypto Basket ?
+## 🧺 Why Choose Crypto INDEX: Crypto Basket ?
 
 💲 FRAX ecosystem comprises of multiple tokens:
 
@@ -60,7 +60,7 @@ Join a thriving community of crypto enthusiasts and access educational resources
 - FPI: Frax Price Index, stablecoin
 - FPIS: Frax Price Index Share, governance token for FPI stablecoin.
 
-FRAX BASKET currently comprises of
+✅ FRAX BASKET currently comprises of
 
 - 0.001 wfrxETH
 - 1 FXS
@@ -70,7 +70,7 @@ This list will be updated based on availability of Oracle prices for assets on f
 
 🔓 Unlock the potential of Index Fund. Either deposit component token to mint frxBASKET to invest or trade them of DEXes or buy frxBASKET from DEX and redeem to get component tokens. You can also mint/redeem frxBASKET using any of the allowed ERC20 tokens using our Net Asset Value Issuance Module.
 
-## Smart Contracts
+## 📑 Smart Contracts
 
 FRAX Basket uses Token Sets Protocol V2 under the hood as primary ecosystem of Smart Contracts.
 
@@ -84,3 +84,24 @@ Ecosystem Contracts
 - Basic Issuance Module: Used to mind/ redeem frxBASKET with all of its components in proportionate order
 - NAV Issuance Module: This module allows users to mint/ redeem using only single allowed token.
 - General Index Module: This is a system contract which is used to rebalance the Fund. Only Fund Manager can start Rebalancing.
+
+## 🚁 How it Works?
+
+2 options to buy Frax Basket (FRXB)
+
+### ✈️ Option 1:
+
+- Get all the component tokens in respective ratio from Frax Swap: 0.001 wfrxETH, 1 FXS and 3 FRAX.
+- Delegate assets to Frax Basket (Basic Issue Module ) using ⚡️icon
+- Mint 1 FRXB by depositing assets in above ratio.
+
+### 🚀 Option 2:
+
+- Get any of the component token (wfrxETH, FRAX or FXS)
+- Delegate asset to Frax Basket (Nav Issue Module)
+- Swap assets with FRXB.
+
+Fund rebalancing a multistep process initiated by Fund Manager.
+Cli version and flow can be found in rebalance script `./smart-contracts/scripts/rebalance_script.js`
+
+use `yarn hardhat --network mainnet run ./scripts/rebelance_script.js` to run the script after configuring the file carefully.

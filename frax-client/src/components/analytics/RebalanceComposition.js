@@ -55,17 +55,20 @@ export default function RebalanceComposition() {
       },
     ],
   });
+
+  const total_asset_value = data && ((data[3]/10**8)*(Number(data[0])/10**18) +  (data[4]/10**8)*(Number(data[1])/10**18) + (data[5]/10**8)*(Number(data[2])/10**18) )
+
   const [wfrxETHPrice, setwfrxETHPrice] = React.useState(data ? data[3]/10**8 : "3378.56");
   const [fraxPrice, setFraxPrice] = React.useState(data ? data[4]/10**8 : "1.01");
   const [fxsPrice, setFxsPrice] = React.useState(data ? data[5]/10**8 : "3.56");
 
-  const [wfrxETHValue, setwfrxETHValue] = React.useState("1470796.86");
-  const [fraxValue, setFraxValue] = React.useState("1784247.36");
-  const [fxsValue, setFxsValue] = React.useState("1200806.12");
+  const [wfrxETHValue, setwfrxETHValue] = React.useState(data ? (data[3]/10**8)*(Number(data[0])/10**18) : "1470796.86");
+  const [fraxValue, setFraxValue] = React.useState(data ? (data[4]/10**8)*(Number(data[1])/10**18) :"1784247.36");
+  const [fxsValue, setFxsValue] = React.useState(data ? (data[5]/10**8)*(Number(data[2])/10**18) :"1200806.12");
 
-  const [wfrxETHAllocation, setwfrxETHAllocation] = React.useState("32");
-  const [fraxAllocation, setFraxAllocation] = React.useState("39");
-  const [fxsAllocation, setFxsAllocation] = React.useState("29");
+  const [wfrxETHAllocation, setwfrxETHAllocation] = React.useState(data ? ((data[3]/10**8)*(Number(data[0])/10**18)*100)/total_asset_value :"32");
+  const [fraxAllocation, setFraxAllocation] = React.useState(data ? ((data[4]/10**8)*(Number(data[1])/10**18)*100)/total_asset_value : "39");
+  const [fxsAllocation, setFxsAllocation] = React.useState(data ? ((data[5]/10**8)*(Number(data[2])/10**18)*100)/total_asset_value :"29");
 
   const [activeIndex, setActiveIndex] = React.useState(0);
   const onPieEnter = React.useCallback(
@@ -74,6 +77,8 @@ export default function RebalanceComposition() {
     },
     [setActiveIndex]
   );
+
+  
 
   // console.log("INDEX CONTRACT BALANCE: ", Number(data[0]), Number(data[1]))
   const assetData = [
