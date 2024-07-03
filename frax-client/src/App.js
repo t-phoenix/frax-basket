@@ -11,7 +11,6 @@ import Home from "./pages/Home";
 import Analytics from "./pages/Analytics";
 import Mint from "./pages/Mint";
 import Fund from "./pages/Fund";
-import Rebalance from "./pages/Rebalance";
 
 // import Fund from "./pages/Fund";
 // import DemoApp from "./pages/DemoApp";

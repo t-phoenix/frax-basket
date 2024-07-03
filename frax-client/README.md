@@ -1,8 +1,49 @@
-# Getting Started with Create React App
+# Frax Basket Client
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
-## Available Scripts
+frax-client hosts the code for frontend that can be used by users to interact with Frax Basket Smart Contracts on fraxtal chain (252). You can connect with any WalletConnect supported EVM wallet and connect with this dapp.
+
+Users can switch to fraxtal mainnet using Wallet Connect chain option.
+
+## Tech
+
+- **React.js** - React is the library for web and native user interfaces. Build user interfaces out of individual pieces called components written in JavaScript.
+- **Node** - Node.js® is a JavaScript runtime built on Chrome's V8 JavaScript engine.
+- **Web3Modal** - Web3Modal is an easy-to-use library to help developers add support for multiple providers in their apps with a simple customizable configuration
+- **WalletConnect** - WalletConnect gives developers the tools to build user experiences that make digital ownership effortless, intuitive, and secure.
+- **ReCharts** - Recharts - Re-designed charting library built with React and D3.
+- **Wagmi** - React Hooks for Ethereum. Type Safe, Extensible, and Modular by design.
+- **Ethers.js** - The ethers.js library aims to be a complete and compact library for interacting with the Ethereum Blockchain and its ecosystem.
+- **Framer Motion** - Framer Motion is a simple yet powerful motion library for React.
+- **Gecko API** - Use our free cryptocurrency API to get data such as live crypto prices, trading volume, trading pairs, historical information, exchanges data, and more.
+
+## Getting Started
+
+1. Install necessary node modules by running:
+   `yarn install`
+2. Start the Client by `yarn start`
+3. You will find the website running on browser (tested on chrome) at localhost:3000
+
+## Code Base
+
+- `./src/Index.js` marks the starting point of this project, implements the configuration for WalletConnect Web3Modal and Fraxtal chain.
+
+- `./src/App.js` hosts the Navbar Header, switchable body and Footer for the Website.
+
+- `./src/pages` contains 4 pages for 4 Navigation Options: Landing Screen(Home), Analytics, Mint and Swap (Fund)
+
+- `./src/components` contains major part of the website hosting multiple components to be rendered on pages. Not so efficient
+
+Other Folders that are self explainatory:
+
+- `./src/contants`
+- `./src/assets`
+- `./src/abis`
+- `./src/services`
+- `./src/styles`
+
+## React Helper Scripts
 
 In the project directory, you can run:
 

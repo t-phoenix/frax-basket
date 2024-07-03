@@ -21,7 +21,7 @@ export default function AssetMenu({setShowAssetList, setSelectedAsset, tokensLis
                   }}
                 >
                   <div style={{ display: "flex", flexDirection: "row" }}>
-                    <img src={token.src} style={{width: '30px'}}/>
+                    <img alt="erc token" src={token.src} style={{width: '30px'}}/>
                     <div className="asset-list-header">
                       <p style={{ padding: "0px" }}>{token.symbol}</p>
                       <p style={{ fontSize: "10px", marginLeft: "2px" }}>

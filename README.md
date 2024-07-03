@@ -1,3 +1,5 @@
+<img src="./frax-client/public/frxBASKET.png" width="100" height="100">
+
 # FRAX BASKET
 
 An Index Fund of Frax Ecosystem tokens on Fraxtal Network
@@ -70,7 +72,7 @@ This list will be updated based on availability of Oracle prices for assets on f
 
 ## Smart Contracts
 
-FRAX Basket uses Set Protocol V2 under the hood as primary ecosystem of Smart Contracts.
+FRAX Basket uses Token Sets Protocol V2 under the hood as primary ecosystem of Smart Contracts.
 
 Ecosystem Contracts
 

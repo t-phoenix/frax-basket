@@ -1,7 +1,6 @@
 import React from "react";
 import "../styles/common.css";
 import {motion} from 'framer-motion';
-import { FaFaucetDrip } from "react-icons/fa6";
 import { BsFillLightningChargeFill } from "react-icons/bs";
 import { useAccount } from "wagmi";
 import { writeContract, prepareWriteContract } from "@wagmi/core"
@@ -16,45 +15,6 @@ import {ethers} from 'ethers';
 export default function MultiAsset({enableDelegate, outputAmount, outputTokensList }) {
   
   const account = useAccount()
-
-  // async function handleFaucet(token){
-  //   console.log("Which faucte clicked: ", token)
-  //   toast(`Processing`)
-  //   switch (token.symbol) {
-  //     case "BTC":
-  //       console.log("BTC clickec")
-  //       sendFaucetTrxn(wbtc, 3000000000000000000n) //3BTC
-  //       break;
-  //     case "ETH":
-  //       console.log("ETH found")
-  //       sendFaucetTrxn(weth, 60000000000000000000n) //60ETH
-  //       break 
-  //     case "USDT":
-  //       console.log("USDT tapped") 
-  //       sendFaucetTrxn(usdt, 24000000000000000000000n)  //24000USDt
-  //     default:
-  //       break;
-  //   }
-  // }
-  // async function sendFaucetTrxn(tokenAddr, value){
-  //   const config  = await prepareWriteContract({
-  //     address: tokenAddr,
-  //     abi: ERCToken_ABI,
-  //     functionName: "mint",
-  //     args: [account.address, value]
-  //   })
-
-  //   try {
-  //     const {hash} = await writeContract(config)
-  //     console.log("Token Mint Hash:" , hash)
-      
-  //     toast.success(`Tokens Minted Successfully at ${hash}`)
-  //   } catch (error) {
-  //     console.log("Could'nt mint Test Tokens: ", error)
-  //     toast.error("Error! Test ERC Token NOT minted")
-  //   }
-    
-  // }
 
   async function handleDelegate(index, token){
     const balanceDifference = ethers.utils.parseUnits(String(token.balance), 'ether')
@@ -127,7 +87,7 @@ export default function MultiAsset({enableDelegate, outputAmount, outputTokensLi
           }}
         >
           <div className="center-in-row">
-            <img src={token.src} style={{width: '26px', backgroundColor: "#303a4f", borderRadius: '25px', marginRight: '8px'}}/>
+            <img alt={token.src} src={token.src} style={{width: '26px', backgroundColor: "#303a4f", borderRadius: '25px', marginRight: '8px'}}/>
             <p style={{fontWeight: '600'}}>{token.name}: </p>
             <p style={{marginLeft: '4px'}}>{outputAmount[token.symbol]}</p>
           </div>

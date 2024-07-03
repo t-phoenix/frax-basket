@@ -3,7 +3,7 @@ import { motion } from "framer-motion";
 import "../styles/common.css";
 import InputBox from "../components/InputBox";
 import frxBASKET from "../assets/frxBASKET.png";
-import { useAccount, useChainId, useNetwork } from "wagmi";
+import { useAccount, useNetwork } from "wagmi";
 import { Web3Button } from "@web3modal/react";
 import MultiAsset from "../components/MultiAsset";
 import SubNav from "../components/common/SubNav";
@@ -77,9 +77,9 @@ export default function DemoApp() {
     ],
   });
 
-  {
-    data && console.log("Your INDEX Balance", Number(data[6]) / 10 ** 18);
-  }
+  // {
+  //   data && console.log("Your INDEX Balance", Number(data[6]) / 10 ** 18);
+  // }
 
   const [indexPrice, setIndexPrice] = React.useState("4.4");
 
@@ -117,7 +117,7 @@ export default function DemoApp() {
       FRAX: 3 * inputAmout,
     });
     getIndexPrice();
-  }, [inputAmout]);
+  }, [inputAmout, getIndexPrice]);
 
   async function getIndexPrice() {
     try {

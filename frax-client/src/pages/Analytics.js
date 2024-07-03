@@ -38,6 +38,23 @@ export default function Analytics() {
         <ContractInfo />
 
 
+        <p
+          style={{
+            textAlign: "start",
+            fontSize: "14px",
+            color: "#52BAD1",
+            marginTop: "24px",
+            fontWeight: "700",
+          }}
+        >
+          ♻️ Index Fund is Reblanced using a script by manager. Contact @toucheyphoenix to rebalnce the fund if you found it skewed. 
+          It should be done automatically after every decided interval in future.
+        </p>
+
+        <br/>
+        <br/>
+
+
       </div>
     </div>
   );

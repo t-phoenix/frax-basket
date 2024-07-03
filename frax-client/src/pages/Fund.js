@@ -9,14 +9,13 @@ import wfrxETHLogo from "../assets/wfrxETH.svg";
 import fxsLogo from "../assets/fxs.svg";
 import fraxLogo from "../assets/frax.svg";
 
-
 //import OutBoxput from "../components/OutputBox";
 import { useAccount, useContractReads, useNetwork } from "wagmi";
 import {prepareWriteContract, writeContract} from "@wagmi/core"
 import { Web3Button } from "@web3modal/react";
-import { getFraxPrice, getFxsPrice, getTetherPrice, getfrxEtherPrice } from "../services/geckoApi";
+import { getFraxPrice, getFxsPrice, getfrxEtherPrice } from "../services/geckoApi";
 import { ERCToken_ABI } from "../abis/ERCToken";
-import { frax, fxs, index, issue, navissue, setvaluer, usdt, wfrxETH } from "../constants/contractAddress";
+import { frax, fxs, index, navissue, setvaluer, usdt, wfrxETH } from "../constants/contractAddress";
 import { SetTokenABI } from "../abis/SetToken";
 import { SetValuerABI } from "../abis/SetValuer";
 import {ethers} from 'ethers';
@@ -34,11 +33,11 @@ export default function Fund() {
     functionName: "balanceOf",
     args: [account.address],
   };
-  const erctokenAllowance = {
-    abi: ERCToken_ABI,
-    functionName: "allowance",
-    args: [account.address, navissue],
-  };
+  // const erctokenAllowance = {
+  //   abi: ERCToken_ABI,
+  //   functionName: "allowance",
+  //   args: [account.address, navissue],
+  // };
   const { data } = useContractReads({
     contracts: [
       {
@@ -64,13 +63,14 @@ export default function Fund() {
         abi: SetValuerABI,
         functionName: "calculateSetTokenValuation",
         args: [index, usdt]
-      }
+      },
+      
     ],
   });
 
-  {
-    data && console.log("FRXB Set Valuer:", Number(data[4]) / 10 ** 8);
-  }
+  // {
+  //   data && console.log("FRXB Set Valuer:", Number(data[4]) / 10 ** 8);
+  // }
 
 
 
@@ -78,7 +78,7 @@ export default function Fund() {
                         {name:"Frax", symbol: "FRAX", src: fraxLogo, address: frax, balance:  data && Number(data[1]) / 10 ** 18, value: "3.03", price: "1.01" }, 
                         {name:"Frax Share", symbol:"FXS", src: fxsLogo, address: fxs, balance:  data && Number(data[2]) / 10 ** 18, value: "3.65", price: "3.65"}
                       ])
-    const [tokensList2, setTokensList2] =React.useState([{name:"Frax Basket", symbol: "FRXB", src: frxBASKET , address: index, balance: data && Number(data[3]) / 10 ** 18, value: "200", price: data && Number(data[4])/10 ** 8 }]) 
+    const [tokensList2] = React.useState([{name:"Frax Basket", symbol: "FRXB", src: frxBASKET , address: index, balance: data && Number(data[3]) / 10 ** 18, value: "200", price: data && Number(data[4])/10 ** 8 }]) 
   
 
 
@@ -97,7 +97,7 @@ export default function Fund() {
         const calculatedOutputAmount = inputAmout*selectedInputAsset.price/selectedOutputAsset.price
         setOutputAmount(calculatedOutputAmount);
         setOutputAmtValue(calculatedOutputAmount*selectedOutputAsset.price);
-    }, [inputAmout])
+    }, [inputAmout, selectedInputAsset.price, selectedOutputAsset.price])
 
     function changeAssets(){
         setIsInputINDEX(!isInputINDEX)
@@ -165,6 +165,35 @@ export default function Fund() {
 
     }
 
+    async function handleDelegate(){
+      if(!isInputINDEX && inputAmout>0){
+        // input is not index
+        const balanceToDelegate = ethers.utils.parseUnits(String(inputAmout), 'ether')
+        const config  = await prepareWriteContract({
+          address: selectedInputAsset.address,
+          abi: ERCToken_ABI,
+          functionName: "approve",
+          args: [navissue, balanceToDelegate]
+        })
+
+        try {
+          const {hash} = await writeContract(config)
+          console.log("Token Delegate Hash:" , hash)
+          
+          toast.success(`Tokens Delegated Successfully at ${hash}`)
+          
+        } catch (error) {
+          console.log("Couldn't Delegatee Test Tokens: ", error)
+          toast.error("Error! Test ERC Token NOT Delegated")
+        }
+
+
+      }else{
+        // input is index
+        toast.error("Need not delegate Frax Basket")
+
+      }
+    }
 
 
 
@@ -255,8 +284,13 @@ export default function Fund() {
         {account.address ? (
           <>
             {chain.id === 252 ? (
+              <div style={{display:'flex', flexDirection: 'row', justifyContent: 'space-around'}}>
+              <div className="center-in-row">
+                  <button onClick={handleDelegate}>Approve</button>
+              </div>
               <div className="center-in-row">
                   <button onClick={handleSwap}>Swap</button>
+              </div>
               </div>
             ) : (
               <p>Please connect to Fraxtal Mainnet</p>

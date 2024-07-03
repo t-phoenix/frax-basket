@@ -1,14 +1,15 @@
 import React from "react";
 import "../../styles/analytics.css";
 import { useContractReads } from "wagmi";
-import { index, wfrxETH, frax, fxs } from "../../constants/contractAddress";
+import { index, wfrxETH, frax, fxs, oracle, usdt } from "../../constants/contractAddress";
 import { ERCToken_ABI } from "../../abis/ERCToken";
 import {
   getfrxEtherPrice,
   getFraxPrice,
   getFxsPrice,
 } from "../../services/geckoApi";
-import { Pie, PieChart, ResponsiveContainer, Sector } from "recharts";
+import { Pie, PieChart, Sector } from "recharts";
+import { PriceOracleABI } from "../../abis/PriceOracle";
 
 
 
@@ -33,11 +34,29 @@ export default function RebalanceComposition() {
         functionName: "balanceOf",
         args: [index],
       },
+      {
+        address: oracle,
+        abi: PriceOracleABI,
+        functionName: "getPrice",
+        args: [wfrxETH, usdt]
+      },
+      {
+        address: oracle,
+        abi: PriceOracleABI,
+        functionName: "getPrice",
+        args: [frax, usdt]
+      },
+      {
+        address: oracle,
+        abi: PriceOracleABI,
+        functionName: "getPrice",
+        args: [fxs, usdt]
+      },
     ],
   });
-  const [wfrxETHPrice, setwfrxETHPrice] = React.useState("3378.56");
-  const [fraxPrice, setFraxPrice] = React.useState("1.01");
-  const [fxsPrice, setFxsPrice] = React.useState("3.56");
+  const [wfrxETHPrice, setwfrxETHPrice] = React.useState(data ? data[3]/10**8 : "3378.56");
+  const [fraxPrice, setFraxPrice] = React.useState(data ? data[4]/10**8 : "1.01");
+  const [fxsPrice, setFxsPrice] = React.useState(data ? data[5]/10**8 : "3.56");
 
   const [wfrxETHValue, setwfrxETHValue] = React.useState("1470796.86");
   const [fraxValue, setFraxValue] = React.useState("1784247.36");

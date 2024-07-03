@@ -54,11 +54,11 @@ export default function InputBox({ inputAmout, setInputAmount, inputAmtValue, se
         >
           {tokensList.length === 1  ? 
           <div className="asset-button" style={{backgroundColor: "#303a4f", color: "#ffffff", borderColor: "#cccbcb", borderStyle: "solid"}}>
-            <img src={selectedAsset.src} style={{width: '28px'}}/>
+            <img alt={selectedAsset.src} src={selectedAsset.src} style={{width: '28px'}}/>
             <p style={{fontSize: '14px', fontWeight: '640', marginInline: '6px'}}>{selectedAsset.symbol}</p>
           </div>:
           <motion.div className="asset-button" onClick={handleSelectAsset} whileHover={{scale: 1.1}} whileTap={{scale: 0.9}}>
-            <img src={selectedAsset.src} style={{width: '30px', backgroundColor: "#191e29", borderRadius: '25px', marginRight: '4px'}}/>
+            <img alt={selectedAsset.src} src={selectedAsset.src} style={{width: '30px', backgroundColor: "#191e29", borderRadius: '25px', marginRight: '4px'}}/>
             <p style={{fontSize: '14px', fontWeight: '640', marginInline: '6px'}}>{selectedAsset.symbol}</p>
           </motion.div>}
           {showAssetList ? (
