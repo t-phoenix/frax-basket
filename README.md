@@ -4,11 +4,11 @@
 
 An Index Fund of Frax Ecosystem tokens on Fraxtal Network
 
-A decentralised INDEX Fund Dapp, to monitor and invest in cryptocurrencies smartly.s
+A decentralised INDEX Fund Dapp, to monitor and invest in cryptocurrencies smartly.
 
-<!-- 🍎 [DEMO APP](https://crypto-index-wine.vercel.app/)
+🍎 [DEMO APP](https://frax-basket.vercel.app/)
 
-🎞 [DEMO VIDEO](https://youtu.be/zURbqoXQcr0) -->
+🎞 [DEMO VIDEO](https://youtu.be/UkyukOPbDus)
 
 ## 📝 Description:
 
